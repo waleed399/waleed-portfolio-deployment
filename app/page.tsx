@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 
@@ -370,6 +372,11 @@ export default function Home() {
                       className={`relative h-48 overflow-hidden rounded-t-xl border-b ${colors.border} ${
                         project.videoUrl ? "bg-zinc-900" : colors.bg
                       }`}
+                      onClick={(e) => {
+                        // Stop event propagation so clicking video doesn't navigate to GitHub
+                        e.preventDefault();
+                        e.stopPropagation();
+                      }}
                     >
                       {project.videoUrl ? (
                         <>
@@ -387,6 +394,11 @@ export default function Home() {
                               controls
                               preload="metadata"
                               playsInline
+                              onClick={(e) => {
+                                // Stop event propagation so clicking video doesn't navigate to GitHub
+                                e.preventDefault();
+                                e.stopPropagation();
+                              }}
                             >
                               <source 
                                 src={encodeURI(project.videoUrl || '')} 
