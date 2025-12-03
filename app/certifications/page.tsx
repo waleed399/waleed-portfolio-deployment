@@ -33,6 +33,22 @@ const certifications: Certification[] = [
     description: "Participation and achievement in the Water Hackathon at Kinneret",
     image: "/certifications/IMG_20221119_171857.jpg",
   },
+  {
+    id: "cert-3",
+    title: "Fullstack android application",
+    issuer: "",
+    date: "",
+    description: "",
+    image: "/certifications/waleed_certificate.jpeg",
+  },
+  {
+    id: "cert-4",
+    title: "AI & data Developer",
+    issuer: "",
+    date: "",
+    description: "",
+    image: "/certifications/A2A399A5-F302-48C3-BAA1-7B249DAC70B2.JPG",
+  },
 ];
 
 export default function CertificationsPage() {
