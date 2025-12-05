@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { useState, useEffect } from "react";
 
 // Helper function to convert YouTube URL to embed format
 function getYouTubeEmbedUrl(url: string): string {
@@ -11,7 +12,7 @@ function getYouTubeEmbedUrl(url: string): string {
   const videoId = match && match[2].length === 11 ? match[2] : null;
   
   if (videoId) {
-    return `https://www.youtube.com/embed/${videoId}`;
+    return `https://www.youtube.com/embed/${videoId}?autoplay=1&loop=1&playlist=${videoId}&mute=1`;
   }
   return url; // Return as-is if not a valid YouTube URL
 }
@@ -91,6 +92,59 @@ const projectColors = {
 };
 
 export default function Home() {
+  // Images for Matapalo, Costa Rica (2021)
+  const matapaloImages = [
+    "/volunteering/IMG_20210921_223733_772.jpeg",
+    "/volunteering/IMG_20210924_160935_493.webp",
+    "/volunteering/IMG_20210924_160955_535 2.webp",
+    "/volunteering/IMG_20210924_172402_499.jpg",
+    "/volunteering/IMG_20210924_172405_788 2.jpg",
+    "/volunteering/IMG_20210924_172502_756 2.jpg",
+    "/volunteering/IMG_20210924_173825_592.webp",
+    "/volunteering/IMG_20210925_092118_322.webp",
+    "/volunteering/IMG_20210926_171203 2.jpg",
+    "/volunteering/IMG_20210926_171734_268.jpg",
+    "/volunteering/IMG_20210926_191946_302.webp",
+    "/volunteering/IMG_20210927_163042_095.webp",
+  ];
+
+  // Images for Puerto Escondido, Mexico (2023)
+  const puertoEscondidoImages = [
+    "/volunteering/IMG_20230301_175245_751.webp",
+    "/volunteering/IMG_20230206_182335_665.webp",
+    "/volunteering/IMG_20230223_130043_122.jpg",
+    "/volunteering/IMG_20230312_161337.jpg",
+  ];
+
+  const [matapaloIndex, setMatapaloIndex] = useState(0);
+  const [puertoEscondidoIndex, setPuertoEscondidoIndex] = useState(0);
+  const [matapaloFade, setMatapaloFade] = useState(true);
+  const [puertoEscondidoFade, setPuertoEscondidoFade] = useState(true);
+
+  // Rotate images every 4 seconds with fade effect
+  useEffect(() => {
+    const matapaloInterval = setInterval(() => {
+      setMatapaloFade(false);
+      setTimeout(() => {
+        setMatapaloIndex((prev) => (prev + 1) % matapaloImages.length);
+        setMatapaloFade(true);
+      }, 300);
+    }, 4000);
+
+    const puertoEscondidoInterval = setInterval(() => {
+      setPuertoEscondidoFade(false);
+      setTimeout(() => {
+        setPuertoEscondidoIndex((prev) => (prev + 1) % puertoEscondidoImages.length);
+        setPuertoEscondidoFade(true);
+      }, 300);
+    }, 4000);
+
+    return () => {
+      clearInterval(matapaloInterval);
+      clearInterval(puertoEscondidoInterval);
+    };
+  }, [matapaloImages.length, puertoEscondidoImages.length]);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-zinc-50 via-white to-zinc-100 dark:from-black dark:via-zinc-950 dark:to-zinc-900">
       {/* Navigation */}
@@ -292,6 +346,35 @@ export default function Home() {
                 </span>
               </div>
             </Link>
+
+            <Link
+              href="/tech-stack#testing-quality-assurance"
+              className="group flex items-center gap-3 rounded-xl border border-zinc-200 bg-white px-6 py-4 shadow-sm transition-all hover:border-zinc-300 hover:shadow-md dark:border-zinc-800 dark:bg-zinc-900 dark:hover:border-zinc-700"
+            >
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-red-100 dark:bg-red-900/30">
+                <svg
+                  className="h-6 w-6 text-red-600 dark:text-red-400"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+              </div>
+              <div className="flex flex-col">
+                <span className="text-sm font-medium text-zinc-500 dark:text-zinc-400">
+                  Testing & QA
+                </span>
+                <span className="text-base font-semibold text-zinc-900 dark:text-zinc-50">
+                  Pytest / Jest / RTL
+                </span>
+              </div>
+            </Link>
           </div>
 
           {/* Call to Action Buttons */}
@@ -392,7 +475,9 @@ export default function Home() {
                             <video
                               className="h-full w-full object-cover"
                               controls
-                              preload="metadata"
+                              autoPlay
+                              loop
+                              muted
                               playsInline
                               onClick={(e) => {
                                 // Stop event propagation so clicking video doesn't navigate to GitHub
@@ -561,10 +646,13 @@ export default function Home() {
               >
                 <div className="relative h-48 w-full overflow-hidden bg-zinc-100 dark:bg-zinc-800">
                   <Image
-                    src="/volunteering/IMG_20210921_223733_772.jpeg"
+                    key={matapaloIndex}
+                    src={matapaloImages[matapaloIndex]}
                     alt="Matapalo, Costa Rica"
                     fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-110"
+                    className={`object-cover transition-all duration-700 group-hover:scale-110 ${
+                      matapaloFade ? "opacity-100" : "opacity-0"
+                    }`}
                     sizes="(max-width: 768px) 100vw, 50vw"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
@@ -622,10 +710,13 @@ export default function Home() {
               >
                 <div className="relative h-48 w-full overflow-hidden bg-zinc-100 dark:bg-zinc-800">
                   <Image
-                    src="/volunteering/IMG_20230301_175245_751.webp"
+                    key={puertoEscondidoIndex}
+                    src={puertoEscondidoImages[puertoEscondidoIndex]}
                     alt="Puerto Escondido, Mexico"
                     fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-110"
+                    className={`object-cover transition-all duration-700 group-hover:scale-110 ${
+                      puertoEscondidoFade ? "opacity-100" : "opacity-0"
+                    }`}
                     sizes="(max-width: 768px) 100vw, 50vw"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />

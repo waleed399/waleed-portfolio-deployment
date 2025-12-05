@@ -92,6 +92,19 @@ const techStack: TechCategory[] = [
     icon: "M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z",
     color: "cyan",
   },
+  {
+    name: "Testing & Quality Assurance",
+    description: "Testing frameworks and quality assurance practices",
+    technologies: [
+      { name: "Pytest", description: "Python testing framework" },
+      { name: "Jest", description: "JavaScript testing framework" },
+      { name: "React Testing Library", description: "React component testing" },
+      { name: "Unit Testing", description: "Component and function testing" },
+      { name: "Integration Testing", description: "API and system integration tests" },
+    ],
+    icon: "M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z",
+    color: "red",
+  },
 ];
 
 const colorClasses = {
@@ -124,6 +137,11 @@ const colorClasses = {
     bg: "bg-cyan-100 dark:bg-cyan-900/30",
     text: "text-cyan-600 dark:text-cyan-400",
     border: "border-cyan-200 dark:border-cyan-800",
+  },
+  red: {
+    bg: "bg-red-100 dark:bg-red-900/30",
+    text: "text-red-600 dark:text-red-400",
+    border: "border-red-200 dark:border-red-800",
   },
 };
 
