@@ -273,6 +273,7 @@ function ProjectCard({ project }: { project: FeaturedProject }) {
                     muted
                     playsInline
                     preload="metadata" // Load only metadata first
+                    poster={`/videos/thumbnails/${project.videoUrl?.split('/').pop()?.replace('.mp4', '.jpg')}`}
                     onClick={(e) => {
                       e.preventDefault();
                       e.stopPropagation();

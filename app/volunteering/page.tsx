@@ -582,6 +582,7 @@ export default function VolunteeringPage() {
                         controls
                         preload="metadata"
                         playsInline
+                        poster={`/volunteering/thumbnails/${item.src.split('/').pop()?.replace('.mp4', '.jpg')}`}
                       >
                         <source 
                           src={encodeURI(item.src)} 
