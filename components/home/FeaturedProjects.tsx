@@ -139,6 +139,7 @@ export default function FeaturedProjects() {
 
 // Separate ProjectCard component with lazy loading
 function ProjectCard({ project }: { project: FeaturedProject }) {
+  const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isVisible, setIsVisible] = useState(false);
   const [shouldLoad, setShouldLoad] = useState(false);
@@ -155,12 +156,16 @@ function ProjectCard({ project }: { project: FeaturedProject }) {
 
   // Intersection Observer for lazy loading
   useEffect(() => {
-    if (!project.videoUrl || project.videoType === "youtube") return;
+    if (!project.videoUrl || project.videoType === "youtube") {
+      // For YouTube or no video, load immediately
+      setShouldLoad(true);
+      return;
+    }
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          // Start loading when 50% above viewport (rootMargin)
+          // Start loading when intersecting
           if (entry.isIntersecting) {
             setShouldLoad(true);
           }
@@ -174,14 +179,13 @@ function ProjectCard({ project }: { project: FeaturedProject }) {
       }
     );
 
-    const videoElement = videoRef.current?.parentElement;
-    if (videoElement) {
-      observer.observe(videoElement);
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
     }
 
     return () => {
-      if (videoElement) {
-        observer.unobserve(videoElement);
+      if (containerRef.current) {
+        observer.unobserve(containerRef.current);
       }
     };
   }, [project.videoUrl, project.videoType]);
@@ -210,6 +214,7 @@ function ProjectCard({ project }: { project: FeaturedProject }) {
     >
       {/* Project Video/Thumbnail Area */}
       <div
+        ref={containerRef}
         className={`relative h-48 overflow-hidden rounded-t-xl border-b ${colors.border} ${
           project.videoUrl ? "bg-zinc-900" : colors.bg
         }`}
