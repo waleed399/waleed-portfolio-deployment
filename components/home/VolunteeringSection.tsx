@@ -23,7 +23,7 @@ const puertoEscondidoImages = [
   "/volunteering/IMG_20230301_175245_751.webp",
   "/volunteering/IMG_20230206_182335_665.webp",
   "/volunteering/IMG_20230223_130043_122.jpg",
-  "/volunteering/IMG_20230312_161337.jpg",
+  "/volunteering/IMG_20230312_161337-optimized.jpg",
 ];
 
 export default function VolunteeringSection() {

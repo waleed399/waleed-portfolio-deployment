@@ -68,18 +68,18 @@ function extractYear(item: MediaItem): string {
 
 // All media files from public/volunteering/
 const allMedia: MediaItem[] = [
-  // Videos - Costa Rica 2021
-  { type: "video" as const, src: "/volunteering/24B9BD60-3A6B-448D-A45D-1880C90C0CE2.MP4" },
-  { type: "video" as const, src: "/volunteering/5B066E28-F864-458E-9562-149369FA5987.MP4" },
-  { type: "video" as const, src: "/volunteering/753B1AC7-7C4B-4B59-96F1-6EA6A847E031.MP4" },
-  { type: "video" as const, src: "/volunteering/B0058FF9-C45B-42E4-8609-4A92C18B957B.MP4" },
+  // Videos - Costa Rica 2021 (web-optimized)
+  { type: "video" as const, src: "/volunteering/24B9BD60-3A6B-448D-A45D-1880C90C0CE2-web.mp4" },
+  { type: "video" as const, src: "/volunteering/5B066E28-F864-458E-9562-149369FA5987-web.mp4" },
+  { type: "video" as const, src: "/volunteering/753B1AC7-7C4B-4B59-96F1-6EA6A847E031-web.mp4" },
+  { type: "video" as const, src: "/volunteering/B0058FF9-C45B-42E4-8609-4A92C18B957B-web.mp4" },
   
-  // Videos - Mexico 2023
-  { type: "video" as const, src: "/volunteering/FC42F1A3-26B6-4F7C-B216-AA242FDCF0DF.MP4" },
-  { type: "video" as const, src: "/volunteering/A60E8EFB-7D57-40F5-BAFA-693407C85F8F.MP4" },
-  { type: "video" as const, src: "/volunteering/EDBAA45A-B551-40D4-B052-C112AA76FA64.MP4" },
-  { type: "video" as const, src: "/volunteering/EECD52C4-3C9B-4DD0-B3BE-19AE0D7384EB.MP4" },
-  { type: "video" as const, src: "/volunteering/2A8874D9-7505-4D0D-8F08-1429D87DF673.MP4" },
+  // Videos - Mexico 2023 (web-optimized)
+  { type: "video" as const, src: "/volunteering/FC42F1A3-26B6-4F7C-B216-AA242FDCF0DF-web.mp4" },
+  { type: "video" as const, src: "/volunteering/A60E8EFB-7D57-40F5-BAFA-693407C85F8F-web.mp4" },
+  { type: "video" as const, src: "/volunteering/EDBAA45A-B551-40D4-B052-C112AA76FA64-web.mp4" },
+  { type: "video" as const, src: "/volunteering/EECD52C4-3C9B-4DD0-B3BE-19AE0D7384EB-web.mp4" },
+  { type: "video" as const, src: "/volunteering/2A8874D9-7505-4D0D-8F08-1429D87DF673-web.mp4" },
   
   // Images - September 2021
   { type: "image" as const, src: "/volunteering/IMG_20210921_223733_772.jpeg", date: "September 21, 2021" },
@@ -99,7 +99,7 @@ const allMedia: MediaItem[] = [
   { type: "image" as const, src: "/volunteering/IMG_20230206_182335_665.webp", date: "February 6, 2023" },
   { type: "image" as const, src: "/volunteering/IMG_20230223_130043_122.jpg", date: "February 23, 2023" },
   { type: "image" as const, src: "/volunteering/IMG_20230301_175245_751.webp", date: "March 1, 2023" },
-  { type: "image" as const, src: "/volunteering/IMG_20230312_161337.jpg", date: "March 12, 2023" },
+  { type: "image" as const, src: "/volunteering/IMG_20230312_161337-optimized.jpg", date: "March 12, 2023" },
   { type: "image" as const, src: "/volunteering/B6D69422-3F2C-43C1-AC05-48A2B9BC2CF1.JPG" },
 ].map((item): MediaItem => ({
   ...item,
