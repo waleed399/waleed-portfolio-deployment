@@ -15,6 +15,12 @@ function getYouTubeEmbedUrl(url: string): string {
   return url;
 }
 
+interface ProjectMetric {
+  label: string;
+  value: string;
+  icon?: string;
+}
+
 interface FeaturedProject {
   title: string;
   description: string;
@@ -27,6 +33,7 @@ interface FeaturedProject {
   privateNote?: string;
   videoUrl?: string;
   videoType?: "youtube" | "local";
+  metrics?: ProjectMetric[];
 }
 
 const featuredProjects: FeaturedProject[] = [
@@ -41,6 +48,11 @@ const featuredProjects: FeaturedProject[] = [
     color: "green",
     videoUrl: "/videos/recommendation-demo.mp4",
     videoType: "local",
+    metrics: [
+      { label: "Microservices", value: "5 services" }, // Backend, Frontend, Kafka, Zookeeper, MongoDB
+      { label: "Real-time", value: "Kafka streams" },
+      { label: "Deployment", value: "Kubernetes" },
+    ],
   },
   {
     title: "Container Monitoring System",
@@ -53,6 +65,11 @@ const featuredProjects: FeaturedProject[] = [
     color: "purple",
     videoUrl: "/videos/monitoring-demo.mp4",
     videoType: "local",
+    metrics: [
+      { label: "Metrics Tracked", value: "6 per container" }, // CPU, Memory, Disk, Processes, etc.
+      { label: "Update Frequency", value: "6 seconds" }, // Real-time monitoring
+      { label: "Real-time", value: "Live tracking" },
+    ],
   },
   {
     title: "MealPlan App",
@@ -65,6 +82,11 @@ const featuredProjects: FeaturedProject[] = [
     color: "orange",
     isPrivate: true,
     privateNote: "CuraLife Startup & Haifa University project - Private repository",
+    metrics: [
+      { label: "Backend APIs", value: "11 controllers" }, // From code structure
+      { label: "Full-Stack", value: "Android + Spring" },
+      { label: "Collaboration", value: "CuraLife + Haifa University" },
+    ],
   },
 ];
 
@@ -369,6 +391,25 @@ function ProjectCard({ project }: { project: FeaturedProject }) {
         <p className="flex-1 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
           {project.description}
         </p>
+
+        {/* Metrics Display */}
+        {project.metrics && project.metrics.length > 0 && (
+          <div className="grid grid-cols-3 gap-2 border-t border-zinc-200 pt-3 dark:border-zinc-800">
+            {project.metrics.map((metric, idx) => (
+              <div
+                key={idx}
+                className="flex flex-col items-center gap-1 rounded-lg bg-zinc-50 px-2 py-2 text-center dark:bg-zinc-900/50"
+              >
+                <span className="text-xs font-semibold text-zinc-900 dark:text-zinc-50">
+                  {metric.value}
+                </span>
+                <span className="text-[10px] text-zinc-600 dark:text-zinc-400">
+                  {metric.label}
+                </span>
+              </div>
+            ))}
+          </div>
+        )}
 
         {project.isPrivate && project.privateNote && (
           <div className="rounded-md bg-amber-50 px-3 py-2 text-xs text-amber-800 dark:bg-amber-900/20 dark:text-amber-300">
