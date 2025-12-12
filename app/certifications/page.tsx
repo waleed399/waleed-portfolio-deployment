@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
+import ThemeToggle from "@/components/ThemeToggle";
 
 interface Certification {
   id: string;
@@ -98,6 +99,7 @@ export default function CertificationsPage() {
               >
                 Certifications
               </Link>
+              <ThemeToggle />
               <a
                 href="/Waleed_Ali_CV.pdf"
                 target="_blank"

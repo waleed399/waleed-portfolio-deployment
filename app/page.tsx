@@ -4,6 +4,7 @@ import KeySkills from "@/components/home/KeySkills";
 import FeaturedProjects from "@/components/home/FeaturedProjects";
 import VolunteeringSection from "@/components/home/VolunteeringSection";
 import ContactSection from "@/components/home/ContactSection";
+import ThemeToggle from "@/components/ThemeToggle";
 
 export default function Home() {
 
@@ -22,7 +23,7 @@ export default function Home() {
             <div className="flex items-center gap-6 text-sm font-medium">
               <Link
                 href="/"
-                className="text-zinc-700 transition-colors hover:text-zinc-900 dark:text-zinc-300 dark:hover:text-zinc-50"
+                className="text-zinc-900 dark:text-zinc-50 font-semibold"
               >
                 Home
               </Link>
@@ -50,6 +51,7 @@ export default function Home() {
               >
                 Certifications
               </Link>
+              <ThemeToggle />
               <a
                 href="/Waleed_Ali_CV.pdf"
                 target="_blank"

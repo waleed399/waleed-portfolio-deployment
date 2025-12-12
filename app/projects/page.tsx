@@ -1,4 +1,5 @@
 import Link from "next/link";
+import ThemeToggle from "@/components/ThemeToggle";
 
 interface Project {
   title: string;
@@ -124,6 +125,7 @@ export default function ProjectsPage() {
               >
                 Certifications
               </Link>
+              <ThemeToggle />
               <a
                 href="/Waleed_Ali_CV.pdf"
                 target="_blank"

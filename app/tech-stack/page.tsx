@@ -1,4 +1,5 @@
 import Link from "next/link";
+import ThemeToggle from "@/components/ThemeToggle";
 
 interface TechCategory {
   name: string;
@@ -189,6 +190,7 @@ export default function TechStackPage() {
               >
                 Certifications
               </Link>
+              <ThemeToggle />
               <a
                 href="/Waleed_Ali_CV.pdf"
                 target="_blank"

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
+import ThemeToggle from "@/components/ThemeToggle";
 
 interface MediaItem {
   type: "image" | "video";
@@ -180,6 +181,7 @@ export default function VolunteeringPage() {
               >
                 Certifications
               </Link>
+              <ThemeToggle />
               <a
                 href="/Waleed_Ali_CV.pdf"
                 target="_blank"
