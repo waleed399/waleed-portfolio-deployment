@@ -19,7 +19,7 @@ export default function ThemeToggle() {
   return (
     <button
       onClick={toggleTheme}
-      className="group relative inline-flex h-9 w-16 items-center rounded-full bg-zinc-200 transition-colors duration-300 hover:bg-zinc-300 dark:bg-zinc-700 dark:hover:bg-zinc-600"
+      className="group relative inline-flex h-9 w-16 shrink-0 items-center rounded-full bg-zinc-200 p-1 transition-colors duration-300 hover:bg-zinc-300 dark:bg-zinc-700 dark:hover:bg-zinc-600"
       aria-label="Toggle theme"
       role="switch"
       aria-checked={isDark}
@@ -27,7 +27,7 @@ export default function ThemeToggle() {
       {/* Sliding circle */}
       <span
         className={`inline-flex h-7 w-7 transform items-center justify-center rounded-full bg-white shadow-lg transition-all duration-300 ease-in-out dark:bg-zinc-900 ${
-          isDark ? "translate-x-8" : "translate-x-1"
+          isDark ? "translate-x-7" : "translate-x-0"
         }`}
       >
         {/* Sun icon - shows in light mode */}
@@ -51,7 +51,7 @@ export default function ThemeToggle() {
 
         {/* Moon icon - shows in dark mode */}
         <svg
-          className={`absolute h-4 w-4 text-indigo-400 transition-all duration-300 ${
+          className={`absolute inset-0 m-auto h-4 w-4 text-indigo-400 transition-all duration-300 ${
             isDark
               ? "scale-100 opacity-100 rotate-0"
               : "scale-0 opacity-0 -rotate-90"
@@ -70,7 +70,7 @@ export default function ThemeToggle() {
       </span>
 
       {/* Optional: Background icons for extra visual appeal */}
-      <span className="absolute left-2 flex items-center">
+      <span className="pointer-events-none absolute left-2.5 flex items-center">
         <svg
           className={`h-3.5 w-3.5 transition-all duration-300 ${
             isDark ? "text-zinc-500 opacity-40" : "text-amber-400 opacity-0"
@@ -85,7 +85,7 @@ export default function ThemeToggle() {
           />
         </svg>
       </span>
-      <span className="absolute right-2 flex items-center">
+      <span className="pointer-events-none absolute right-2.5 flex items-center">
         <svg
           className={`h-3.5 w-3.5 transition-all duration-300 ${
             isDark ? "text-indigo-300 opacity-70" : "text-zinc-400 opacity-0"
