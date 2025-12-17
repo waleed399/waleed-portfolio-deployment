@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 // Helper function to convert YouTube URL to embed format
 function getYouTubeEmbedUrl(url: string): string {
@@ -109,8 +110,15 @@ const projectColors = {
 };
 
 export default function FeaturedProjects() {
+  const { ref, isVisible } = useScrollAnimation();
+
   return (
-    <section className="flex flex-col gap-8 pt-8">
+    <section 
+      ref={ref}
+      className={`flex flex-col gap-8 pt-8 transition-all duration-700 ${
+        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+      }`}
+    >
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-3xl font-bold text-zinc-900 dark:text-zinc-50">

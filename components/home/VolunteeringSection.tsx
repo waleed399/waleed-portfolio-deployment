@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const matapaloImages = [
   "/volunteering/IMG_20210921_223733_772.jpeg",
@@ -27,6 +28,7 @@ const puertoEscondidoImages = [
 ];
 
 export default function VolunteeringSection() {
+  const { ref, isVisible } = useScrollAnimation();
   const [matapaloIndex, setMatapaloIndex] = useState(0);
   const [puertoEscondidoIndex, setPuertoEscondidoIndex] = useState(0);
   const [matapaloFade, setMatapaloFade] = useState(true);
@@ -57,7 +59,12 @@ export default function VolunteeringSection() {
   }, []);
 
   return (
-    <section className="flex flex-col gap-8 pt-8">
+    <section 
+      ref={ref}
+      className={`flex flex-col gap-8 pt-8 transition-all duration-700 ${
+        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+      }`}
+    >
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-3xl font-bold text-zinc-900 dark:text-zinc-50">

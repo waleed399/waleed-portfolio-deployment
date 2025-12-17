@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
 import ThemeToggle from "@/components/ThemeToggle";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 interface Certification {
   id: string;
@@ -53,6 +54,8 @@ const certifications: Certification[] = [
 ];
 
 export default function CertificationsPage() {
+  const headerRef = useScrollAnimation();
+  const certificationsRef = useScrollAnimation();
   const [selectedCert, setSelectedCert] = useState<Certification | null>(null);
   const [fullSizeImage, setFullSizeImage] = useState<string | null>(null);
 
@@ -117,7 +120,12 @@ export default function CertificationsPage() {
       <main className="mx-auto max-w-6xl px-6 py-20 sm:py-32">
         <div className="flex flex-col gap-16">
           {/* Header */}
-          <div className="flex flex-col gap-4">
+          <div 
+            ref={headerRef.ref}
+            className={`flex flex-col gap-4 transition-all duration-700 ${
+              headerRef.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`}
+          >
             <h1 className="text-5xl font-bold leading-tight tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-6xl">
               Certifications
             </h1>
@@ -128,7 +136,12 @@ export default function CertificationsPage() {
 
           {/* Certifications Grid */}
           {certifications.length > 0 ? (
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <div 
+              ref={certificationsRef.ref}
+              className={`grid gap-6 sm:grid-cols-2 lg:grid-cols-3 transition-all duration-700 ${
+                certificationsRef.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+              }`}
+            >
               {certifications.map((cert) => (
                 <button
                   key={cert.id}

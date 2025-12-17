@@ -2,8 +2,10 @@
 
 import { useState } from "react";
 import emailjs from "@emailjs/browser";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 export default function ContactSection() {
+  const { ref, isVisible } = useScrollAnimation();
   const [formData, setFormData] = useState({
     from_email: "",
     subject: "",
@@ -79,7 +81,12 @@ export default function ContactSection() {
   };
 
   return (
-    <section className="flex flex-col gap-12 pt-8">
+    <section 
+      ref={ref}
+      className={`flex flex-col gap-12 pt-8 transition-all duration-700 ${
+        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+      }`}
+    >
       <div>
         <h2 className="text-3xl font-bold text-zinc-900 dark:text-zinc-50">
           Get in Touch

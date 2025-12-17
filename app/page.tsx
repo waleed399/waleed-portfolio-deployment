@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import Hero from "@/components/home/Hero";
 import KeySkills from "@/components/home/KeySkills";
@@ -5,8 +7,10 @@ import FeaturedProjects from "@/components/home/FeaturedProjects";
 import VolunteeringSection from "@/components/home/VolunteeringSection";
 import ContactSection from "@/components/home/ContactSection";
 import ThemeToggle from "@/components/ThemeToggle";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 export default function Home() {
+  const ctaRef = useScrollAnimation();
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-zinc-50 via-white to-zinc-100 dark:from-black dark:via-zinc-950 dark:to-zinc-900">
@@ -75,7 +79,12 @@ export default function Home() {
           <KeySkills />
 
           {/* Call to Action Buttons */}
-          <div className="flex flex-wrap gap-4">
+          <div 
+            ref={ctaRef.ref}
+            className={`flex flex-wrap gap-4 transition-all duration-700 ${
+              ctaRef.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`}
+          >
             <Link
               href="/projects"
               className="group flex items-center gap-2 rounded-full bg-zinc-900 px-6 py-3 text-white transition-colors hover:bg-zinc-800 dark:bg-zinc-50 dark:text-zinc-900 dark:hover:bg-zinc-200"

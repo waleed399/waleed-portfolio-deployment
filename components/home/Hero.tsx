@@ -1,6 +1,59 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+
 export default function Hero() {
+  const [isVisible, setIsVisible] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // Check if element is already visible on mount
+    const checkVisibility = () => {
+      if (ref.current) {
+        const rect = ref.current.getBoundingClientRect();
+        const isInView = rect.top < window.innerHeight && rect.bottom > 0;
+        if (isInView) {
+          setIsVisible(true);
+          return;
+        }
+      }
+      
+      // Use IntersectionObserver for scroll-triggered animation
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            setIsVisible(true);
+          }
+        },
+        {
+          threshold: 0.1,
+          rootMargin: "0px",
+        }
+      );
+
+      if (ref.current) {
+        observer.observe(ref.current);
+      }
+
+      return () => {
+        if (ref.current) {
+          observer.unobserve(ref.current);
+        }
+      };
+    };
+
+    // Small delay to ensure DOM is ready
+    const timer = setTimeout(checkVisibility, 100);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
-    <div className="flex flex-col gap-6">
+    <div 
+      ref={ref}
+      className={`flex flex-col gap-6 transition-all duration-700 ${
+        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+      }`}
+    >
       <h1 className="text-5xl font-bold leading-tight tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-6xl lg:text-7xl">
         Waleed Ali
       </h1>

@@ -1,11 +1,22 @@
+"use client";
+
 import Link from "next/link";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 export default function KeySkills() {
+  const { ref, isVisible } = useScrollAnimation();
+
   return (
-    <div className="flex flex-wrap gap-4">
+    <div 
+      ref={ref}
+      className={`flex flex-wrap gap-4 transition-all duration-700 ${
+        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+      }`}
+    >
       <Link
         href="/tech-stack#backend-apis"
-        className="group flex items-center gap-3 rounded-xl border border-zinc-200 bg-white px-6 py-4 shadow-sm transition-all hover:border-zinc-300 hover:shadow-md dark:border-zinc-800 dark:bg-zinc-900 dark:hover:border-zinc-700"
+        className="group flex items-center gap-3 rounded-xl border border-zinc-200 bg-white px-6 py-4 shadow-sm transition-all duration-300 hover:border-zinc-300 hover:shadow-lg hover:-translate-y-1 hover:scale-105 dark:border-zinc-800 dark:bg-zinc-900 dark:hover:border-zinc-700"
+        style={{ transitionDelay: '0ms' }}
       >
         <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-100 dark:bg-blue-900/30">
           <svg
@@ -34,7 +45,8 @@ export default function KeySkills() {
 
       <Link
         href="/tech-stack#streaming-data"
-        className="group flex items-center gap-3 rounded-xl border border-zinc-200 bg-white px-6 py-4 shadow-sm transition-all hover:border-zinc-300 hover:shadow-md dark:border-zinc-800 dark:bg-zinc-900 dark:hover:border-zinc-700"
+        className="group flex items-center gap-3 rounded-xl border border-zinc-200 bg-white px-6 py-4 shadow-sm transition-all duration-300 hover:border-zinc-300 hover:shadow-lg hover:-translate-y-1 hover:scale-105 dark:border-zinc-800 dark:bg-zinc-900 dark:hover:border-zinc-700"
+        style={{ transitionDelay: '50ms' }}
       >
         <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-green-100 dark:bg-green-900/30">
           <svg
@@ -63,7 +75,8 @@ export default function KeySkills() {
 
       <Link
         href="/tech-stack#containerization-orchestration"
-        className="group flex items-center gap-3 rounded-xl border border-zinc-200 bg-white px-6 py-4 shadow-sm transition-all hover:border-zinc-300 hover:shadow-md dark:border-zinc-800 dark:bg-zinc-900 dark:hover:border-zinc-700"
+        className="group flex items-center gap-3 rounded-xl border border-zinc-200 bg-white px-6 py-4 shadow-sm transition-all duration-300 hover:border-zinc-300 hover:shadow-lg hover:-translate-y-1 hover:scale-105 dark:border-zinc-800 dark:bg-zinc-900 dark:hover:border-zinc-700"
+        style={{ transitionDelay: '100ms' }}
       >
         <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-purple-100 dark:bg-purple-900/30">
           <svg
@@ -92,7 +105,8 @@ export default function KeySkills() {
 
       <Link
         href="/tech-stack#frontend-ui"
-        className="group flex items-center gap-3 rounded-xl border border-zinc-200 bg-white px-6 py-4 shadow-sm transition-all hover:border-zinc-300 hover:shadow-md dark:border-zinc-800 dark:bg-zinc-900 dark:hover:border-zinc-700"
+        className="group flex items-center gap-3 rounded-xl border border-zinc-200 bg-white px-6 py-4 shadow-sm transition-all duration-300 hover:border-zinc-300 hover:shadow-lg hover:-translate-y-1 hover:scale-105 dark:border-zinc-800 dark:bg-zinc-900 dark:hover:border-zinc-700"
+        style={{ transitionDelay: '150ms' }}
       >
         <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-orange-100 dark:bg-orange-900/30">
           <svg
@@ -121,7 +135,8 @@ export default function KeySkills() {
 
       <Link
         href="/tech-stack#testing-quality-assurance"
-        className="group flex items-center gap-3 rounded-xl border border-zinc-200 bg-white px-6 py-4 shadow-sm transition-all hover:border-zinc-300 hover:shadow-md dark:border-zinc-800 dark:bg-zinc-900 dark:hover:border-zinc-700"
+        className="group flex items-center gap-3 rounded-xl border border-zinc-200 bg-white px-6 py-4 shadow-sm transition-all duration-300 hover:border-zinc-300 hover:shadow-lg hover:-translate-y-1 hover:scale-105 dark:border-zinc-800 dark:bg-zinc-900 dark:hover:border-zinc-700"
+        style={{ transitionDelay: '200ms' }}
       >
         <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-red-100 dark:bg-red-900/30">
           <svg

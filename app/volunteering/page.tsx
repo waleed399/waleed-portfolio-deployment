@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
 import ThemeToggle from "@/components/ThemeToggle";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 interface MediaItem {
   type: "image" | "video";
@@ -135,6 +136,9 @@ const collections: Collection[] = [
 ];
 
 export default function VolunteeringPage() {
+  const headerRef = useScrollAnimation();
+  const collectionsRef = useScrollAnimation();
+  const reflectionRef = useScrollAnimation();
   const [selectedCollection, setSelectedCollection] = useState<Collection | null>(null);
   const [selectedImage, setSelectedImage] = useState<MediaItem | null>(null);
 
@@ -199,7 +203,12 @@ export default function VolunteeringPage() {
       <main className="mx-auto max-w-6xl px-6 py-20 sm:py-32">
         <div className="flex flex-col gap-16">
           {/* Header */}
-          <div className="flex flex-col gap-4">
+          <div 
+            ref={headerRef.ref}
+            className={`flex flex-col gap-4 transition-all duration-700 ${
+              headerRef.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`}
+          >
             <h1 className="text-5xl font-bold leading-tight tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-6xl">
               Volunteering
             </h1>
@@ -210,7 +219,12 @@ export default function VolunteeringPage() {
           </div>
 
           {/* Collection Cards */}
-          <div className="grid gap-8 md:grid-cols-2">
+          <div 
+            ref={collectionsRef.ref}
+            className={`grid gap-8 md:grid-cols-2 transition-all duration-700 ${
+              collectionsRef.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`}
+          >
             {collections.map((collection) => (
               <button
                 key={collection.id}
@@ -368,7 +382,12 @@ export default function VolunteeringPage() {
           </div>
 
           {/* Reflection Section */}
-          <div className="relative overflow-hidden rounded-2xl border border-zinc-200 bg-gradient-to-br from-zinc-50 to-white p-8 shadow-lg dark:border-zinc-800 dark:from-zinc-900 dark:to-zinc-950 sm:p-12">
+          <div 
+            ref={reflectionRef.ref}
+            className={`relative overflow-hidden rounded-2xl border border-zinc-200 bg-gradient-to-br from-zinc-50 to-white p-8 shadow-lg transition-all duration-700 dark:border-zinc-800 dark:from-zinc-900 dark:to-zinc-950 sm:p-12 ${
+              reflectionRef.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`}
+          >
             {/* Decorative Background Elements */}
             <div className="absolute right-0 top-0 h-64 w-64 -translate-y-1/2 translate-x-1/2 rounded-full bg-green-500/5 blur-3xl" />
             <div className="absolute bottom-0 left-0 h-64 w-64 translate-y-1/2 -translate-x-1/2 rounded-full bg-blue-500/5 blur-3xl" />

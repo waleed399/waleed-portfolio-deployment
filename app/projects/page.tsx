@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import ThemeToggle from "@/components/ThemeToggle";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 interface Project {
   title: string;
@@ -79,6 +82,9 @@ const projects: Project[] = [
 ];
 
 export default function ProjectsPage() {
+  const headerRef = useScrollAnimation();
+  const featuredRef = useScrollAnimation();
+  const otherRef = useScrollAnimation();
   const featuredProjects = projects.filter((p) => p.featured);
   const otherProjects = projects.filter((p) => !p.featured);
 
@@ -143,7 +149,12 @@ export default function ProjectsPage() {
       <main className="mx-auto max-w-6xl px-6 py-20 sm:py-32">
         <div className="flex flex-col gap-16">
           {/* Header */}
-          <div className="flex flex-col gap-4">
+          <div 
+            ref={headerRef.ref}
+            className={`flex flex-col gap-4 transition-all duration-700 ${
+              headerRef.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`}
+          >
             <h1 className="text-5xl font-bold leading-tight tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-6xl">
               Projects
             </h1>
@@ -155,7 +166,12 @@ export default function ProjectsPage() {
 
           {/* Featured Projects */}
           {featuredProjects.length > 0 && (
-            <section className="flex flex-col gap-8">
+            <section 
+              ref={featuredRef.ref}
+              className={`flex flex-col gap-8 transition-all duration-700 ${
+                featuredRef.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+              }`}
+            >
               <h2 className="text-2xl font-semibold text-zinc-900 dark:text-zinc-50">
                 Featured Projects
               </h2>
@@ -169,7 +185,12 @@ export default function ProjectsPage() {
 
           {/* Other Projects */}
           {otherProjects.length > 0 && (
-            <section className="flex flex-col gap-8">
+            <section 
+              ref={otherRef.ref}
+              className={`flex flex-col gap-8 transition-all duration-700 ${
+                otherRef.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+              }`}
+            >
               <h2 className="text-2xl font-semibold text-zinc-900 dark:text-zinc-50">
                 Other Projects
               </h2>

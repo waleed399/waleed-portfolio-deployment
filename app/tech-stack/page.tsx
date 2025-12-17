@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import ThemeToggle from "@/components/ThemeToggle";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 interface TechCategory {
   name: string;
@@ -147,6 +150,10 @@ const colorClasses = {
 };
 
 export default function TechStackPage() {
+  const headerRef = useScrollAnimation();
+  const categoriesRef = useScrollAnimation();
+  const ctaRef = useScrollAnimation();
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-zinc-50 via-white to-zinc-100 dark:from-black dark:via-zinc-950 dark:to-zinc-900">
       {/* Navigation */}
@@ -208,7 +215,12 @@ export default function TechStackPage() {
       <main className="mx-auto max-w-6xl px-6 py-20 sm:py-32">
         <div className="flex flex-col gap-16">
           {/* Header */}
-          <div className="flex flex-col gap-4">
+          <div 
+            ref={headerRef.ref}
+            className={`flex flex-col gap-4 transition-all duration-700 ${
+              headerRef.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`}
+          >
             <h1 className="text-5xl font-bold leading-tight tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-6xl">
               Tech Stack
             </h1>
@@ -219,7 +231,12 @@ export default function TechStackPage() {
           </div>
 
           {/* Tech Categories */}
-          <div className="grid gap-6 md:grid-cols-2">
+          <div 
+            ref={categoriesRef.ref}
+            className={`grid gap-6 md:grid-cols-2 transition-all duration-700 ${
+              categoriesRef.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`}
+          >
             {techStack.map((category) => {
               const colors = colorClasses[category.color as keyof typeof colorClasses];
               const categoryId = category.name.toLowerCase().replace(/\s+/g, "-").replace(/&/g, "");
@@ -276,7 +293,12 @@ export default function TechStackPage() {
           </div>
 
           {/* Call to Action */}
-          <div className="flex flex-col items-center gap-4 rounded-xl border border-zinc-200 bg-white p-8 text-center dark:border-zinc-800 dark:bg-zinc-900">
+          <div 
+            ref={ctaRef.ref}
+            className={`flex flex-col items-center gap-4 rounded-xl border border-zinc-200 bg-white p-8 text-center transition-all duration-700 dark:border-zinc-800 dark:bg-zinc-900 ${
+              ctaRef.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`}
+          >
             <h3 className="text-2xl font-semibold text-zinc-900 dark:text-zinc-50">
               Want to see these technologies in action?
             </h3>
