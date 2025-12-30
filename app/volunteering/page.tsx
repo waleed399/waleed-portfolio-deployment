@@ -187,7 +187,7 @@ export default function VolunteeringPage() {
                 Certifications
               </Link>
               <ThemeToggle />
-              <CVDownloadButton variant="secondary" className="hidden sm:flex" showBoth={true} />
+              <CVDownloadButton variant="secondary" showBoth={true} />
             </div>
           </div>
         </div>

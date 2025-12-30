@@ -71,7 +71,7 @@ export default function CVDownloadButton({
     <div className={`relative ${className}`} ref={dropdownRef}>
       <button
         onClick={() => setShowDropdown(!showDropdown)}
-        className="group relative inline-flex items-center gap-2 rounded-lg border border-zinc-300 bg-white px-4 py-2 text-sm font-medium text-zinc-700 transition-all duration-200 hover:border-zinc-400 hover:bg-zinc-50 hover:shadow-md dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:bg-zinc-800"
+        className="group relative inline-flex items-center gap-1.5 sm:gap-2 rounded-lg border border-zinc-300 bg-white px-2.5 sm:px-4 py-2 text-sm font-medium text-zinc-700 transition-all duration-200 hover:border-zinc-400 hover:bg-zinc-50 hover:shadow-md dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:bg-zinc-800"
         aria-label="CV Options"
         aria-expanded={showDropdown}
       >
@@ -90,7 +90,7 @@ export default function CVDownloadButton({
             />
           </svg>
         </div>
-        <span>Resume</span>
+        <span className="hidden sm:inline">Resume</span>
         <svg
           className={`h-3.5 w-3.5 transition-transform duration-200 ${showDropdown ? "rotate-180" : ""}`}
           fill="none"
@@ -102,7 +102,7 @@ export default function CVDownloadButton({
       </button>
 
       {showDropdown && (
-        <div className="absolute right-0 top-full mt-1.5 w-56 z-50">
+        <div className="absolute right-0 top-full mt-1.5 w-56 sm:w-56 z-50">
           <div className="overflow-hidden rounded-xl border border-zinc-200/80 bg-white/95 shadow-2xl backdrop-blur-xl transition-all duration-200 dark:border-zinc-700/80 dark:bg-zinc-900/95">
             {/* Header */}
             <div className="border-b border-zinc-200/50 bg-gradient-to-r from-blue-50/50 to-purple-50/50 px-4 py-3 dark:border-zinc-700/50 dark:from-blue-950/20 dark:to-purple-950/20">
