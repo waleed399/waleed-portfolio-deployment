@@ -444,3 +444,4 @@ function ProjectCard({ project }: { project: FeaturedProject }) {
     </CardWrapper>
   );
 }
+

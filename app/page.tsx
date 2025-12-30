@@ -7,6 +7,7 @@ import FeaturedProjects from "@/components/home/FeaturedProjects";
 import VolunteeringSection from "@/components/home/VolunteeringSection";
 import ContactSection from "@/components/home/ContactSection";
 import ThemeToggle from "@/components/ThemeToggle";
+import CVDownloadButton from "@/components/CVDownloadButton";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 export default function Home() {
@@ -56,14 +57,7 @@ export default function Home() {
                 Certifications
               </Link>
               <ThemeToggle />
-              <a
-                href="/Waleed_Ali_CV.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="rounded-full bg-zinc-900 px-4 py-2 text-white transition-colors hover:bg-zinc-800 dark:bg-zinc-50 dark:text-zinc-900 dark:hover:bg-zinc-200"
-              >
-                Download CV
-              </a>
+              <CVDownloadButton variant="secondary" className="hidden sm:flex" showBoth={true} />
             </div>
           </div>
         </div>
