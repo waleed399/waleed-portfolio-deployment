@@ -4,6 +4,7 @@ import Link from "next/link";
 import ThemeToggle from "@/components/ThemeToggle";
 import CVDownloadButton from "@/components/CVDownloadButton";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { cvPath } from "@/lib/site-config";
 
 interface Project {
   title: string;
@@ -238,7 +239,7 @@ export default function ProjectsPage() {
                 GitHub
               </a>
               <a
-                href="/Waleed_Ali_CV.pdf"
+                href={cvPath}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="transition-colors hover:text-zinc-900 dark:hover:text-zinc-50"

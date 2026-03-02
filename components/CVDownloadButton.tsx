@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import { cvPath, siteConfig } from "@/lib/site-config";
 
 interface CVButtonProps {
   variant?: "primary" | "secondary" | "floating";
@@ -18,15 +19,15 @@ export default function CVDownloadButton({
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const handlePreview = () => {
-    window.open("/Waleed_Ali_CV.pdf", "_blank", "noopener,noreferrer");
+    window.open(cvPath, "_blank", "noopener,noreferrer");
     setShowDropdown(false);
   };
 
   const handleDownload = () => {
     setIsDownloading(true);
     const link = document.createElement("a");
-    link.href = "/Waleed_Ali_CV.pdf";
-    link.download = "Waleed_Ali_CV.pdf";
+    link.href = cvPath;
+    link.download = siteConfig.cvFilename;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);

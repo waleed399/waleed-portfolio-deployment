@@ -6,6 +6,7 @@ import { useState } from "react";
 import ThemeToggle from "@/components/ThemeToggle";
 import CVDownloadButton from "@/components/CVDownloadButton";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { cvPath } from "@/lib/site-config";
 
 interface MediaItem {
   type: "image" | "video";
@@ -685,7 +686,7 @@ export default function VolunteeringPage() {
                 GitHub
               </a>
               <a
-                href="/Waleed_Ali_CV.pdf"
+                href={cvPath}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="transition-colors hover:text-zinc-900 dark:hover:text-zinc-50"

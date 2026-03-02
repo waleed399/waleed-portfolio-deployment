@@ -36,7 +36,7 @@ waleed-portfolio/
 ├── public/
 │   ├── videos/               # Project demonstration videos
 │   ├── volunteering/         # Volunteering photos and videos
-│   └── Waleed_Ali_CV.pdf     # Resume/CV
+│   └── Waleed_Ali_Resume.pdf  # Resume/CV
 └── package.json
 ```
 

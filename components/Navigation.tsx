@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import ThemeToggle from "./ThemeToggle";
+import { cvPath } from "@/lib/site-config";
 
 export default function Navigation() {
   const pathname = usePathname();
@@ -74,7 +75,7 @@ export default function Navigation() {
             </Link>
             <ThemeToggle />
             <a
-              href="/Waleed_Ali_CV.pdf"
+              href={cvPath}
               target="_blank"
               rel="noopener noreferrer"
               className="rounded-full bg-zinc-900 px-4 py-2 text-white transition-colors hover:bg-zinc-800 dark:bg-zinc-50 dark:text-zinc-900 dark:hover:bg-zinc-200"
