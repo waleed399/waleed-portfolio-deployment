@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
@@ -34,10 +35,60 @@ interface FeaturedProject {
   privateNote?: string;
   videoUrl?: string;
   videoType?: "youtube" | "local";
+  images?: string[];
   metrics?: ProjectMetric[];
+  /** Live App Store listing URL — when set, the card links here and shows a "Live" badge */
+  appStoreUrl?: string;
+  /** Short status shown as a badge, e.g. "Live on App Store" */
+  liveStatus?: string;
+  /** Show a "Coming soon to Google Play" note */
+  googlePlayComingSoon?: boolean;
 }
 
+// Live App Store listing for ShiftFlow (Shift Right).
+const SHIFTFLOW_APP_STORE_URL = "https://apps.apple.com/il/app/shift-right/id6764660828";
+
 const featuredProjects: FeaturedProject[] = [
+  {
+    title: "Shift Right",
+    description:
+      "A workforce shift-scheduling platform for businesses. Managers build and publish weekly schedules while workers set availability and claim open shifts. Live on the App Store with real clients in production — Google Play release in progress.",
+    githubUrl: "",
+    technologies: ["React Native", "Expo", "TypeScript", "Node.js", "Express", "Prisma", "PostgreSQL"],
+    category: "Full-Stack Mobile · SaaS",
+    icon: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4",
+    color: "blue",
+    images: [
+      "/shiftflow/9.jpeg", // Sign in — brand hero
+      "/shiftflow/5.jpeg", // Manager dashboard / roster
+      "/shiftflow/4.jpeg", // Weekly shift schedule grid
+      "/shiftflow/17.jpeg", // Auto-scheduler — Generate schedule
+      "/shiftflow/3.jpeg", // Worker availability overview
+      "/shiftflow/10.jpeg", // Worker dashboard
+      "/shiftflow/1.jpeg", // Team members
+      "/shiftflow/2.jpeg", // Organization settings
+      "/shiftflow/16.jpeg", // Edit shift / assign workers
+      "/shiftflow/15.jpeg", // Assign workers grid
+      "/shiftflow/13.jpeg", // Manager dashboard
+      "/shiftflow/14.jpeg", // Manager profile / plan
+      "/shiftflow/18.jpeg", // Team members
+      "/shiftflow/12.jpeg", // Worker shifts / availability
+      "/shiftflow/11.jpeg", // Worker profile / reminders
+      "/shiftflow/8.jpeg", // Create account — email
+      "/shiftflow/7.jpeg", // Verify email
+      "/shiftflow/6.jpeg", // Create organization
+    ],
+    appStoreUrl: SHIFTFLOW_APP_STORE_URL,
+    liveStatus: "Live on App Store",
+    googlePlayComingSoon: true,
+    isPrivate: true,
+    privateNote: "Commercial product — private repository. Built solo over 3 months and shipped to paying clients.",
+    metrics: [
+      { label: "Status", value: "On App Store" },
+      { label: "Stage", value: "In production" },
+      { label: "Built", value: "Solo · 3 mo" },
+    ],
+  },
   {
     title: "E-commerce Recommendation System",
     description:
@@ -92,6 +143,11 @@ const featuredProjects: FeaturedProject[] = [
 ];
 
 const projectColors = {
+  blue: {
+    bg: "bg-blue-100 dark:bg-blue-900/30",
+    text: "text-blue-600 dark:text-blue-400",
+    border: "border-blue-200 dark:border-blue-800",
+  },
   green: {
     bg: "bg-green-100 dark:bg-green-900/30",
     text: "text-green-600 dark:text-green-400",
@@ -167,6 +223,64 @@ export default function FeaturedProjects() {
   );
 }
 
+// Auto-rotating crossfade carousel of app screenshots. Advances only while
+// on screen (saves work when scrolled away) and shows the top of each
+// portrait screenshot so the branded headers fill the card.
+function ScreenshotCarousel({ images, title }: { images: string[]; title: string }) {
+  const carouselRef = useRef<HTMLDivElement>(null);
+  const [index, setIndex] = useState(0);
+  const [active, setActive] = useState(false);
+
+  useEffect(() => {
+    const el = carouselRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setActive(entry.isIntersecting),
+      { threshold: 0.2 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!active || images.length <= 1) return;
+    const id = setInterval(() => {
+      setIndex((i) => (i + 1) % images.length);
+    }, 2800);
+    return () => clearInterval(id);
+  }, [active, images.length]);
+
+  return (
+    <div ref={carouselRef} className="absolute inset-0">
+      {images.map((src, i) => (
+        <Image
+          key={src}
+          src={src}
+          alt={`${title} app screenshot ${i + 1}`}
+          fill
+          sizes="(max-width: 768px) 100vw, 384px"
+          priority={i === 0}
+          className={`object-cover object-top transition-opacity duration-700 ease-in-out ${
+            i === index ? "opacity-100" : "opacity-0"
+          }`}
+        />
+      ))}
+      {/* subtle gradient so dots stay readable over the screenshot */}
+      <div className="absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-black/30 to-transparent" />
+      <div className="absolute bottom-2 left-1/2 flex -translate-x-1/2 gap-1.5">
+        {images.map((_, i) => (
+          <span
+            key={i}
+            className={`h-1.5 rounded-full transition-all duration-300 ${
+              i === index ? "w-4 bg-white" : "w-1.5 bg-white/50"
+            }`}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
 // Separate ProjectCard component with lazy loading
 function ProjectCard({ project }: { project: FeaturedProject }) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -175,14 +289,17 @@ function ProjectCard({ project }: { project: FeaturedProject }) {
   const [shouldLoad, setShouldLoad] = useState(false);
   
   const colors = projectColors[project.color as keyof typeof projectColors];
-  const CardWrapper = project.isPrivate ? "div" : "a";
-  const wrapperProps = project.isPrivate
-    ? {}
-    : {
-        href: project.githubUrl,
+  // Link target priority: App Store listing > GitHub. Private repos with no
+  // App Store link fall back to a non-clickable card.
+  const linkUrl = project.appStoreUrl || (project.isPrivate ? "" : project.githubUrl);
+  const CardWrapper = linkUrl ? "a" : "div";
+  const wrapperProps = linkUrl
+    ? {
+        href: linkUrl,
         target: "_blank",
         rel: "noopener noreferrer",
-      };
+      }
+    : {};
 
   // Intersection Observer for lazy loading
   useEffect(() => {
@@ -237,7 +354,7 @@ function ProjectCard({ project }: { project: FeaturedProject }) {
     <CardWrapper
       {...wrapperProps}
       className={`group flex flex-col rounded-xl border ${
-        project.isPrivate
+        !linkUrl
           ? "border-zinc-200 bg-zinc-50/50 opacity-90 dark:border-zinc-800 dark:bg-zinc-900/50 cursor-default"
           : "border-zinc-200 bg-white shadow-sm transition-all hover:border-zinc-300 hover:shadow-lg dark:border-zinc-800 dark:bg-zinc-900 dark:hover:border-zinc-700"
       }`}
@@ -246,11 +363,19 @@ function ProjectCard({ project }: { project: FeaturedProject }) {
       <div
         ref={containerRef}
         className={`relative h-48 overflow-hidden rounded-t-xl border-b ${colors.border} ${
-          project.videoUrl ? "bg-zinc-900" : colors.bg
+          project.videoUrl
+            ? "bg-zinc-900"
+            : project.images?.length
+            ? "bg-gradient-to-br from-zinc-100 to-zinc-200 dark:from-zinc-800 dark:to-zinc-950"
+            : colors.bg
         }`}
         onClick={(e) => {
-          e.preventDefault();
-          e.stopPropagation();
+          // Only swallow clicks over a video (so its controls work); let
+          // image/icon cards pass the click through to the card link.
+          if (project.videoUrl) {
+            e.preventDefault();
+            e.stopPropagation();
+          }
         }}
       >
         {project.videoUrl ? (
@@ -327,6 +452,8 @@ function ProjectCard({ project }: { project: FeaturedProject }) {
               </>
             )}
           </>
+        ) : project.images && project.images.length > 0 ? (
+          <ScreenshotCarousel images={project.images.slice(0, 6)} title={project.title} />
         ) : (
           <div className="flex h-full items-center justify-center">
             <svg
@@ -348,7 +475,17 @@ function ProjectCard({ project }: { project: FeaturedProject }) {
             </svg>
           </div>
         )}
-        {project.isPrivate && (
+        {project.liveStatus ? (
+          <div className="absolute top-2 right-2">
+            <span className="inline-flex items-center gap-1.5 rounded-md bg-green-500/95 px-2 py-1 text-xs font-semibold text-white shadow-sm">
+              <span className="relative flex h-1.5 w-1.5">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white opacity-75" />
+                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-white" />
+              </span>
+              {project.liveStatus}
+            </span>
+          </div>
+        ) : project.isPrivate ? (
           <div className="absolute top-2 right-2">
             <span className="inline-flex items-center gap-1 rounded-md bg-zinc-200/80 px-2 py-1 text-xs font-medium text-zinc-700 dark:bg-zinc-800/80 dark:text-zinc-300">
               <svg
@@ -365,7 +502,7 @@ function ProjectCard({ project }: { project: FeaturedProject }) {
               Private
             </span>
           </div>
-        )}
+        ) : null}
       </div>
 
       {/* Project Content */}
@@ -379,7 +516,7 @@ function ProjectCard({ project }: { project: FeaturedProject }) {
               {project.category}
             </span>
           </div>
-          {!project.isPrivate && (
+          {linkUrl && (
             <svg
               className="h-5 w-5 shrink-0 text-zinc-400 transition-transform group-hover:translate-x-1 group-hover:text-zinc-600 dark:text-zinc-500 dark:group-hover:text-zinc-300"
               fill="none"
@@ -399,6 +536,28 @@ function ProjectCard({ project }: { project: FeaturedProject }) {
         <p className="flex-1 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
           {project.description}
         </p>
+
+        {/* App Store / Google Play availability */}
+        {(project.appStoreUrl || project.googlePlayComingSoon) && (
+          <div className="flex flex-wrap items-center gap-2">
+            {project.appStoreUrl && (
+              <span className="inline-flex items-center gap-1.5 rounded-md bg-zinc-900 px-2.5 py-1 text-xs font-medium text-white dark:bg-zinc-50 dark:text-zinc-900">
+                <svg className="h-3.5 w-3.5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M16.365 1.43c0 1.14-.493 2.27-1.177 3.08-.744.9-1.99 1.57-2.987 1.57-.12 0-.23-.02-.3-.03-.01-.06-.04-.22-.04-.39 0-1.15.572-2.27 1.206-2.98.804-.94 2.142-1.64 3.248-1.68.03.13.05.28.05.43zm4.565 15.71c-.03.07-.463 1.58-1.518 3.12-.945 1.34-1.94 2.71-3.43 2.71-1.517 0-1.9-.88-3.63-.88-1.698 0-2.302.91-3.67.91-1.377 0-2.332-1.26-3.428-2.8-1.287-1.82-2.323-4.63-2.323-7.28 0-4.28 2.797-6.55 5.552-6.55 1.448 0 2.675.95 3.6.95.865 0 2.222-1.01 3.902-1.01.613 0 2.886.06 4.374 2.19-.13.09-2.383 1.37-2.383 4.19 0 3.26 2.854 4.42 2.955 4.45z" />
+                </svg>
+                App Store
+              </span>
+            )}
+            {project.googlePlayComingSoon && (
+              <span className="inline-flex items-center gap-1.5 rounded-md border border-zinc-300 px-2.5 py-1 text-xs font-medium text-zinc-600 dark:border-zinc-700 dark:text-zinc-400">
+                <svg className="h-3.5 w-3.5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 01-.61-.92V2.734a1 1 0 01.609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.198l2.807 1.626a1 1 0 010 1.73l-2.808 1.626-2.491-2.491 2.492-2.491zM5.864 2.658L16.802 8.99l-2.302 2.302-8.636-8.635z" />
+                </svg>
+                Coming to Google Play
+              </span>
+            )}
+          </div>
+        )}
 
         {/* Metrics Display */}
         {project.metrics && project.metrics.length > 0 && (

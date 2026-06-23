@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import ThemeToggle from "@/components/ThemeToggle";
 import CVDownloadButton from "@/components/CVDownloadButton";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
@@ -16,9 +17,48 @@ interface Project {
   featured: boolean;
   isPrivate?: boolean;
   privateNote?: string;
+  appStoreUrl?: string;
+  liveStatus?: string;
+  googlePlayComingSoon?: boolean;
+  images?: string[];
 }
 
 const projects: Project[] = [
+  {
+    title: "Shift Right",
+    description: "Workforce shift-scheduling platform — live on the App Store",
+    longDescription:
+      "A production workforce shift-scheduling platform for businesses, built solo over three months and shipped to real paying clients on the App Store. Managers create departments, build and publish weekly schedules, and auto-assign shifts based on worker availability; workers set their availability in time blocks, browse the published schedule, and claim open shifts. The cross-platform mobile app is built with React Native (Expo) and TypeScript, backed by a Node.js/Express API with Prisma and PostgreSQL, including JWT auth with account lockout, role-based access, and full RTL/internationalization support. A Google Play release is in progress.",
+    githubUrl: "",
+    technologies: ["React Native", "Expo", "TypeScript", "Node.js", "Express", "Prisma", "PostgreSQL", "JWT", "i18n / RTL"],
+    category: "Full-Stack Mobile · SaaS",
+    featured: true,
+    isPrivate: true,
+    privateNote: "Commercial product — private repository. Live on the App Store with paying clients.",
+    appStoreUrl: "https://apps.apple.com/il/app/shift-right/id6764660828",
+    liveStatus: "Live on App Store",
+    googlePlayComingSoon: true,
+    images: [
+      "/shiftflow/9.jpeg", // Sign in — brand hero
+      "/shiftflow/5.jpeg", // Manager dashboard / roster
+      "/shiftflow/4.jpeg", // Weekly shift schedule grid
+      "/shiftflow/17.jpeg", // Auto-scheduler — Generate schedule
+      "/shiftflow/3.jpeg", // Worker availability overview
+      "/shiftflow/10.jpeg", // Worker dashboard
+      "/shiftflow/1.jpeg", // Team members
+      "/shiftflow/2.jpeg", // Organization settings
+      "/shiftflow/16.jpeg", // Edit shift / assign workers
+      "/shiftflow/15.jpeg", // Assign workers grid
+      "/shiftflow/13.jpeg", // Manager dashboard
+      "/shiftflow/14.jpeg", // Manager profile / plan
+      "/shiftflow/18.jpeg", // Team members
+      "/shiftflow/12.jpeg", // Worker shifts / availability
+      "/shiftflow/11.jpeg", // Worker profile / reminders
+      "/shiftflow/8.jpeg", // Create account — email
+      "/shiftflow/7.jpeg", // Verify email
+      "/shiftflow/6.jpeg", // Create organization
+    ],
+  },
   {
     title: "E-commerce Recommendation System",
     description: "Develop an e-commerce recommendation system",
@@ -258,11 +298,31 @@ function ProjectCard({ project }: { project: Project }) {
   return (
     <div
       className={`group flex flex-col rounded-xl border ${
-        project.isPrivate
+        project.isPrivate && !project.appStoreUrl
           ? "border-zinc-200 bg-zinc-50/50 opacity-90 dark:border-zinc-800 dark:bg-zinc-900/50"
           : "border-zinc-200 bg-white shadow-sm transition-all hover:border-zinc-300 hover:shadow-lg dark:border-zinc-800 dark:bg-zinc-900 dark:hover:border-zinc-700"
       }`}
     >
+      {project.images && project.images.length > 0 && (
+        <div className="flex snap-x snap-mandatory gap-3 overflow-x-auto rounded-t-xl border-b border-zinc-200 bg-gradient-to-br from-zinc-100 to-zinc-200 p-4 dark:border-zinc-800 dark:from-zinc-800 dark:to-zinc-950">
+          {project.images.map((src, i) => (
+            <div
+              key={src}
+              className="relative h-52 w-[100px] shrink-0 snap-start overflow-hidden rounded-xl border border-zinc-300/60 bg-white shadow-sm dark:border-zinc-700/60"
+            >
+              <Image
+                src={src}
+                alt={`${project.title} screenshot ${i + 1}`}
+                fill
+                sizes="100px"
+                loading="lazy"
+                className="object-cover object-top"
+              />
+            </div>
+          ))}
+        </div>
+      )}
+
       <div className="flex flex-1 flex-col gap-4 p-6">
         <div className="flex items-start justify-between gap-4">
           <div className="flex-1">
@@ -270,6 +330,15 @@ function ProjectCard({ project }: { project: Project }) {
               <h3 className="text-xl font-semibold text-zinc-900 dark:text-zinc-50">
                 {project.title}
               </h3>
+              {project.liveStatus && (
+                <span className="inline-flex items-center gap-1.5 rounded-md bg-green-500/95 px-2 py-0.5 text-xs font-semibold text-white">
+                  <span className="relative flex h-1.5 w-1.5">
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white opacity-75" />
+                    <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-white" />
+                  </span>
+                  {project.liveStatus}
+                </span>
+              )}
               {project.isPrivate && (
                 <span className="inline-flex items-center gap-1 rounded-md bg-zinc-200 px-2 py-0.5 text-xs font-medium text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300">
                   <svg
@@ -291,7 +360,19 @@ function ProjectCard({ project }: { project: Project }) {
               {project.category}
             </span>
           </div>
-          {!project.isPrivate && (
+          {project.appStoreUrl ? (
+            <a
+              href={project.appStoreUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex h-8 w-8 items-center justify-center rounded-lg border border-zinc-200 bg-zinc-50 text-zinc-600 transition-all hover:border-zinc-300 hover:bg-zinc-100 hover:text-zinc-900 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-400 dark:hover:border-zinc-600 dark:hover:bg-zinc-700 dark:hover:text-zinc-50"
+              aria-label={`View ${project.title} on the App Store`}
+            >
+              <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M16.365 1.43c0 1.14-.493 2.27-1.177 3.08-.744.9-1.99 1.57-2.987 1.57-.12 0-.23-.02-.3-.03-.01-.06-.04-.22-.04-.39 0-1.15.572-2.27 1.206-2.98.804-.94 2.142-1.64 3.248-1.68.03.13.05.28.05.43zm4.565 15.71c-.03.07-.463 1.58-1.518 3.12-.945 1.34-1.94 2.71-3.43 2.71-1.517 0-1.9-.88-3.63-.88-1.698 0-2.302.91-3.67.91-1.377 0-2.332-1.26-3.428-2.8-1.287-1.82-2.323-4.63-2.323-7.28 0-4.28 2.797-6.55 5.552-6.55 1.448 0 2.675.95 3.6.95.865 0 2.222-1.01 3.902-1.01.613 0 2.886.06 4.374 2.19-.13.09-2.383 1.37-2.383 4.19 0 3.26 2.854 4.42 2.955 4.45z" />
+              </svg>
+            </a>
+          ) : !project.isPrivate ? (
             <a
               href={project.githubUrl}
               target="_blank"
@@ -311,12 +392,38 @@ function ProjectCard({ project }: { project: Project }) {
                 />
               </svg>
             </a>
-          )}
+          ) : null}
         </div>
 
         <p className="flex-1 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
           {project.longDescription}
         </p>
+
+        {(project.appStoreUrl || project.googlePlayComingSoon) && (
+          <div className="flex flex-wrap items-center gap-2">
+            {project.appStoreUrl && (
+              <a
+                href={project.appStoreUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 rounded-md bg-zinc-900 px-2.5 py-1 text-xs font-medium text-white transition-opacity hover:opacity-90 dark:bg-zinc-50 dark:text-zinc-900"
+              >
+                <svg className="h-3.5 w-3.5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M16.365 1.43c0 1.14-.493 2.27-1.177 3.08-.744.9-1.99 1.57-2.987 1.57-.12 0-.23-.02-.3-.03-.01-.06-.04-.22-.04-.39 0-1.15.572-2.27 1.206-2.98.804-.94 2.142-1.64 3.248-1.68.03.13.05.28.05.43zm4.565 15.71c-.03.07-.463 1.58-1.518 3.12-.945 1.34-1.94 2.71-3.43 2.71-1.517 0-1.9-.88-3.63-.88-1.698 0-2.302.91-3.67.91-1.377 0-2.332-1.26-3.428-2.8-1.287-1.82-2.323-4.63-2.323-7.28 0-4.28 2.797-6.55 5.552-6.55 1.448 0 2.675.95 3.6.95.865 0 2.222-1.01 3.902-1.01.613 0 2.886.06 4.374 2.19-.13.09-2.383 1.37-2.383 4.19 0 3.26 2.854 4.42 2.955 4.45z" />
+                </svg>
+                Download on the App Store
+              </a>
+            )}
+            {project.googlePlayComingSoon && (
+              <span className="inline-flex items-center gap-1.5 rounded-md border border-zinc-300 px-2.5 py-1 text-xs font-medium text-zinc-600 dark:border-zinc-700 dark:text-zinc-400">
+                <svg className="h-3.5 w-3.5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 01-.61-.92V2.734a1 1 0 01.609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.198l2.807 1.626a1 1 0 010 1.73l-2.808 1.626-2.491-2.491 2.492-2.491zM5.864 2.658L16.802 8.99l-2.302 2.302-8.636-8.635z" />
+                </svg>
+                Coming to Google Play
+              </span>
+            )}
+          </div>
+        )}
 
         {project.isPrivate && project.privateNote && (
           <div className="rounded-md bg-amber-50 px-3 py-2 text-xs text-amber-800 dark:bg-amber-900/20 dark:text-amber-300">
