@@ -6,7 +6,7 @@ export const siteConfig = {
   /** Your full name (hero, footer, metadata) */
   name: "Waleed Ali",
   /** CV PDF filename in public/ (e.g. "Jane_Doe_CV.pdf") */
-  cvFilename: "Waleed_Ali_Resume.pdf",
+  cvFilename: "Waleed Ali.pdf",
 } as const;
 
 /** Full URL path for the CV (used in links and download) */
