@@ -51,6 +51,7 @@ const techStack: TechCategory[] = [
     technologies: [
       { name: "Docker", description: "Containerization platform" },
       { name: "Kubernetes", description: "Container orchestration" },
+      { name: "Temporal", description: "Distributed workflow orchestration" },
       { name: "CI/CD", description: "Continuous integration and deployment" },
       { name: "Monitoring", description: "System and container monitoring" },
     ],
@@ -83,6 +84,17 @@ const techStack: TechCategory[] = [
     ],
     icon: "M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4",
     color: "indigo",
+  },
+  {
+    name: "AI & Vector Search",
+    description: "AI pipelines, vector databases, and intelligent retrieval systems",
+    technologies: [
+      { name: "Milvus", description: "Vector database for AI-powered search" },
+      { name: "RAG", description: "Retrieval-Augmented Generation pipelines" },
+      { name: "Vector Search", description: "Semantic and similarity search" },
+    ],
+    icon: "M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z",
+    color: "pink",
   },
   {
     name: "Cloud & Infrastructure",
@@ -148,6 +160,11 @@ const colorClasses = {
     bg: "bg-red-100 dark:bg-red-900/30",
     text: "text-red-600 dark:text-red-400",
     border: "border-red-200 dark:border-red-800",
+  },
+  pink: {
+    bg: "bg-pink-100 dark:bg-pink-900/30",
+    text: "text-pink-600 dark:text-pink-400",
+    border: "border-pink-200 dark:border-pink-800",
   },
 };
 
