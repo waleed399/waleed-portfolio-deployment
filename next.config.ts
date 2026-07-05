@@ -50,12 +50,22 @@ const nextConfig: NextConfig = {
         ],
       },
       {
-        // Cache static assets for 1 year
-        source: "/(.*)\\.(jpg|jpeg|png|gif|ico|svg|webp|mp4|mov|pdf)$",
+        // Cache static assets for 1 year (immutable — Next.js content-hashes these)
+        source: "/(.*)\\.(jpg|jpeg|png|gif|ico|svg|webp|mp4|mov)$",
         headers: [
           {
             key: "Cache-Control",
             value: "public, max-age=31536000, immutable",
+          },
+        ],
+      },
+      {
+        // PDFs revalidate on each visit so updates are picked up without a filename change
+        source: "/(.*)\\.pdf$",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=0, must-revalidate",
           },
         ],
       },
