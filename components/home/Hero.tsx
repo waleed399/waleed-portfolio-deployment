@@ -58,21 +58,22 @@ export default function Hero() {
         Waleed Ali
       </h1>
       <h2 className="text-2xl font-semibold text-zinc-700 dark:text-zinc-300 sm:text-3xl">
-        Full-Stack Engineer
+        Software Engineer
       </h2>
       <div className="max-w-3xl space-y-4">
         <p className="text-lg leading-relaxed text-zinc-600 dark:text-zinc-400 sm:text-xl">
-          Full-Stack Developer with 2+ years of experience delivering scalable web
-          applications across the entire stack. Currently building low-latency
-          microservice architectures and real-time systems
-          , where I develop high-performance solutions using Kafka, Kubernetes, and
+          Software engineer with 2+ years building production systems end to end
+          &mdash; from low-latency microservice architectures and real-time event
+          pipelines to the interfaces on top of them, using Kafka, Kubernetes, and
           modern web technologies.
         </p>
         <p className="text-lg leading-relaxed text-zinc-600 dark:text-zinc-400 sm:text-xl">
-          Experienced in Agile methodologies, working within cross-functional teams to
-          deliver production-ready solutions. I bring expertise in Python, FastAPI,
-          Node.js, React, Next.js, and cloud infrastructure, with a strong focus on
-          containerization, CI/CD, and scalable system design.
+          I work across the stack because the problems worth solving rarely respect
+          its boundaries: schema design, failure modes, and how a system behaves under
+          load matter as much as the feature on top. Experienced in Agile,
+          cross-functional teams, with expertise in Python, FastAPI, Node.js, React,
+          Next.js, and cloud infrastructure, and a strong focus on containerization,
+          CI/CD, and scalable system design.
         </p>
       </div>
     </div>

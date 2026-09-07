@@ -19,12 +19,18 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Waleed Ali - Full-Stack Engineer",
+  title: "Waleed Ali - Software Engineer",
   description:
-    "Full-Stack Engineer specializing in low-latency microservice architectures and scalable data pipelines. Building real-time systems with Kafka, Kubernetes, and modern web technologies.",
+    "Software engineer building production systems end to end: low-latency microservice architectures, real-time event pipelines, and the interfaces on top of them. Kafka, Kubernetes, Python, and modern web technologies.",
+  // "Full-Stack" stays in the keywords even though the visible title no longer
+  // leads with it — recruiters and job boards still search on the term, and
+  // losing the match costs reach for nothing.
   keywords: [
-    "Full-Stack Engineer",
     "Software Engineer",
+    "Backend Engineer",
+    "Full-Stack Engineer",
+    "Full-Stack Developer",
+    "Distributed Systems",
     "Kafka",
     "Kubernetes",
     "React",
@@ -36,17 +42,17 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Waleed Ali" }],
   openGraph: {
-    title: "Waleed Ali - Full-Stack Engineer",
+    title: "Waleed Ali - Software Engineer",
     description:
-      "Full-Stack Engineer specializing in low-latency microservice architectures and scalable data pipelines.",
+      "Software engineer building production systems end to end: low-latency microservice architectures, real-time event pipelines, and the interfaces on top of them.",
     type: "website",
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Waleed Ali - Full-Stack Engineer",
+    title: "Waleed Ali - Software Engineer",
     description:
-      "Full-Stack Engineer specializing in low-latency microservice architectures and scalable data pipelines.",
+      "Software engineer building production systems end to end: low-latency microservice architectures, real-time event pipelines, and the interfaces on top of them.",
   },
   robots: {
     index: true,

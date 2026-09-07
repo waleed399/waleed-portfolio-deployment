@@ -125,7 +125,7 @@ export default function KeySkills() {
         </div>
         <div className="flex flex-col">
           <span className="text-sm font-medium text-zinc-500 dark:text-zinc-400">
-            Full-Stack UI
+            Frontend &amp; UI
           </span>
           <span className="text-base font-semibold text-zinc-900 dark:text-zinc-50">
             React / Next.js

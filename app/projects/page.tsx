@@ -194,8 +194,9 @@ export default function ProjectsPage() {
               Projects
             </h1>
             <p className="max-w-2xl text-lg leading-relaxed text-zinc-600 dark:text-zinc-400">
-              A collection of impactful projects showcasing expertise in full-stack
-              development, microservices architecture, and cloud infrastructure.
+              Systems I&apos;ve designed and shipped &mdash; microservice architecture,
+              real-time data pipelines, cloud infrastructure, and the mobile and web
+              applications built on top of them.
             </p>
           </div>
 
